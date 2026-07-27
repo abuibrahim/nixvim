@@ -30,6 +30,20 @@
         action = "buffers";
         options.desc = "+buffer";
       };
+
+      # LSP-powered search (only useful with a server attached, harmless otherwise)
+      "<leader>ss" = {
+        action = "lsp_document_symbols";
+        options.desc = "Goto Symbol (document)";
+      };
+      "<leader>sS" = {
+        action = "lsp_dynamic_workspace_symbols";
+        options.desc = "Goto Symbol (workspace)";
+      };
+      "<leader>sd" = {
+        action = "diagnostics";
+        options.desc = "Diagnostics";
+      };
     };
   };
 }

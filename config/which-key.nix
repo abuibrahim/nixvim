@@ -10,6 +10,14 @@
         };
         spec = [
           {
+            __unkeyed-1 = "<leader>c";
+            mode = [
+              "n"
+              "v"
+            ];
+            group = "+code";
+          }
+          {
             __unkeyed-1 = "<leader>g";
             mode = [
               "n"
