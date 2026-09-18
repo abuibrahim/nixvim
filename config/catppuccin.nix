@@ -15,6 +15,7 @@
           enabled = true;
           colored_indent_levels = true;
         };
+        blink_pairs = true;
         lsp_trouble = true;
         noice = true;
         notify = true;

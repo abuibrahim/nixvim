@@ -41,6 +41,14 @@
             group = "+quit";
           }
           {
+            __unkeyed-1 = "gs";
+            mode = [
+              "n"
+              "v"
+            ];
+            group = "+surround";
+          }
+          {
             __unkeyed-1 = "<leader>x";
             mode = [ "n" ];
             group = "+diagnostics/quickfix";

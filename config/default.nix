@@ -2,6 +2,7 @@
   # Import all your configuration modules here
   imports = [
     ./blink-cmp.nix
+    ./blink-pairs.nix
     ./bufferline.nix
     ./catppuccin.nix
     ./conform.nix
@@ -9,12 +10,14 @@
     ./gitsigns.nix
     ./lsp.nix
     ./lualine.nix
+    ./mini-surround.nix
     ./neo-tree.nix
     ./notify.nix
     ./ui.nix
     ./telescope.nix
     ./trouble.nix
     ./treesitter.nix
+    ./treesitter-textobjects.nix
     ./which-key.nix
     ./keymaps.nix
   ];
