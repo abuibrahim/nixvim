@@ -38,7 +38,7 @@
           {
             __unkeyed-1 = "<leader>q";
             mode = [ "n" ];
-            group = "+quit";
+            group = "+quit/session";
           }
           {
             __unkeyed-1 = "gs";

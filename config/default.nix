@@ -13,6 +13,7 @@
     ./mini-surround.nix
     ./neo-tree.nix
     ./notify.nix
+    ./persistence.nix
     ./ui.nix
     ./telescope.nix
     ./trouble.nix
