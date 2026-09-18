@@ -12,6 +12,58 @@
   keymaps = [
     {
       mode = "n";
+      key = "]h";
+      action.__raw = ''
+        function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "]c", bang = true })
+          else
+            require("gitsigns").nav_hunk("next")
+          end
+        end
+      '';
+      options = {
+        silent = true;
+        desc = "Next Hunk";
+      };
+    }
+    {
+      mode = "n";
+      key = "[h";
+      action.__raw = ''
+        function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "[c", bang = true })
+          else
+            require("gitsigns").nav_hunk("prev")
+          end
+        end
+      '';
+      options = {
+        silent = true;
+        desc = "Previous Hunk";
+      };
+    }
+    {
+      mode = "n";
+      key = "]H";
+      action = "<cmd>lua require('gitsigns').nav_hunk('last')<CR>";
+      options = {
+        silent = true;
+        desc = "Last Hunk";
+      };
+    }
+    {
+      mode = "n";
+      key = "[H";
+      action = "<cmd>lua require('gitsigns').nav_hunk('first')<CR>";
+      options = {
+        silent = true;
+        desc = "First Hunk";
+      };
+    }
+    {
+      mode = "n";
       key = "<leader>gb";
       action = ":Gitsigns blame_line<CR>";
       options = {
