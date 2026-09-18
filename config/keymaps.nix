@@ -99,7 +99,7 @@
     {
       mode = "n";
       key = "<C-s>";
-      action = "<cmd>w<CR><ESC>";
+      action = "<cmd>w<CR>";
       options = {
         silent = true;
         desc = "Save File";
@@ -110,7 +110,7 @@
     {
       mode = "n";
       key = "<leader>qq";
-      action = "<cmd>quitall<CR><ESC>";
+      action = "<cmd>quitall<CR>";
       options = {
         silent = true;
         desc = "Quit all";
@@ -184,6 +184,10 @@
       mode = "n";
       key = "<ESC>";
       action = "<cmd>nohlsearch<CR>";
+      options = {
+        silent = true;
+        desc = "Clear Search Highlight";
+      };
     }
 
     # Indent blank lines

@@ -46,20 +46,14 @@
       };
     }
     {
-      mode = "n";
+      mode = [
+        "n"
+        "v"
+      ];
       key = "<leader>cf";
       action = "<cmd>lua require('conform').format()<CR>";
       options = {
-        desc = "Format Buffer";
-        silent = true;
-      };
-    }
-    {
-      mode = "v";
-      key = "<leader>cF";
-      action = "<cmd>lua require('conform').format()<CR>";
-      options = {
-        desc = "Format Lines";
+        desc = "Format Buffer/Selection";
         silent = true;
       };
     }
