@@ -29,7 +29,6 @@
   opts = {
     # Performance & Timing
     updatetime = 100; # CursorHold delay; faster completion and git signs
-    lazyredraw = false; # Breaks noice plugin
     synmaxcol = 240; # Disable syntax highlighting for long lines
     timeoutlen = 500; # Key sequence timeout (ms)
     smoothscroll = true; # Smooth scrolling with Ctrl-D/U
@@ -41,7 +40,6 @@
     number = true;
     relativenumber = true;
     cursorline = true;
-    cursorcolumn = false;
     signcolumn = "yes";
     colorcolumn = "80";
     laststatus = 3; # Global statusline
@@ -89,7 +87,6 @@
     foldlevel = 99; # Keep folds open by default
     foldcolumn = "1";
     foldenable = true;
-    foldlevelstart = -1; # -1 uses foldlevel value
     foldtext = ""; # Empty uses builtin foldtext
     fillchars = {
       horiz = "━";

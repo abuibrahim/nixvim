@@ -51,11 +51,11 @@
             group = "+windows";
           }
         ];
-        win = {
-          #border = "none";
-        };
       };
     };
-    mini-icons.enable = true;
+    mini-icons = {
+      enable = true;
+      mockDevIcons = true;
+    };
   };
 }
