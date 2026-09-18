@@ -38,7 +38,12 @@
           {
             __unkeyed-1 = "<leader>q";
             mode = [ "n" ];
-            group = "+quit/session";
+            group = "+quit";
+          }
+          {
+            __unkeyed-1 = "<leader>x";
+            mode = [ "n" ];
+            group = "+diagnostics/quickfix";
           }
           {
             __unkeyed-1 = "<leader>u";

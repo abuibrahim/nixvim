@@ -13,6 +13,7 @@
     ./notify.nix
     ./ui.nix
     ./telescope.nix
+    ./trouble.nix
     ./treesitter.nix
     ./which-key.nix
     ./keymaps.nix
