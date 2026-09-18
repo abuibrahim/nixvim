@@ -51,6 +51,16 @@
             inherit nvim;
             name = "nvim";
           };
+
+          assertions = pkgs.runCommand "nvim-assertions" { } ''
+            export HOME="$(mktemp -d)"
+            export XDG_CONFIG_HOME="$HOME/.config"
+            export XDG_DATA_HOME="$HOME/.local/share"
+            export XDG_STATE_HOME="$HOME/.local/state"
+            export XDG_CACHE_HOME="$HOME/.cache"
+            ${nvim}/bin/nvim --headless -c 'luafile ${./checks/assertions.lua}' </dev/null
+            touch "$out"
+          '';
         };
 
         packages = {
