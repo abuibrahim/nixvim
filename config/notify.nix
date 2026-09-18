@@ -21,13 +21,22 @@
         desc = "Dismiss All Notifications";
       };
     }
+    {
+      mode = "n";
+      key = "<leader>uh";
+      action = "<cmd>lua ToggleInlayHints()<CR>";
+      options = {
+        silent = true;
+        desc = "Toggle Inlay Hints";
+      };
+    }
   ];
 
   extraConfigLua = ''
     local notify = require("notify")
 
-    local function show_notification(message, level)
-      notify(message, level, { title = "conform.nvim" })
+    local function show_notification(message, level, title)
+      notify(message, level, { title = title or "nixvim" })
     end
 
     function ToggleLineNumber()
@@ -58,7 +67,6 @@
         show_notification("Wrap disabled", "info")
       else
         vim.wo.wrap = true
-        vim.wo.number = false
         show_notification("Wrap enabled", "info")
       end
     end
@@ -74,68 +82,39 @@
     end
 
     vim.api.nvim_create_autocmd("BufReadPost", {
-      callback = function()
-        local current_dir = vim.fn.getcwd()
-        local is_nixpkgs = current_dir:match("nixpkgs$")
-        if is_nixpkgs then
-          vim.b.disable_autoformat = true
-          show_notification("Autoformat-on-save disabled for nixpkgs", "info")
-        else
-          vim.b.disable_autoformat = false
+      desc = "Disable autoformat-on-save for nixpkgs buffers",
+      callback = function(args)
+        local path = vim.api.nvim_buf_get_name(args.buf)
+        if path == "" then
+          return
+        end
+
+        local root = vim.fs.root(path, { ".git", "flake.nix" })
+        if root and root:match("nixpkgs$") then
+          vim.b[args.buf].disable_autoformat = true
+          show_notification("Autoformat-on-save disabled for nixpkgs", "info", "conform.nvim")
         end
       end,
     })
 
     vim.api.nvim_create_user_command("FormatToggle", function(args)
-      local is_global = not args.bang
-      local current_dir = vim.fn.getcwd()
-      local is_nixpkgs = current_dir:match("nixpkgs$")
+      local scope = args.bang and "this buffer" or "globally"
 
-      if is_global then
-        vim.g.disable_autoformat = not vim.g.disable_autoformat
-        if vim.g.disable_autoformat then
-          show_notification("Autoformat-on-save disabled globally", "info")
-        else
-          show_notification("Autoformat-on-save enabled globally", "info")
-        end
-      elseif is_nixpkgs then
+      if args.bang then
         vim.b.disable_autoformat = not vim.b.disable_autoformat
-        if vim.b.disable_autoformat then
-          show_notification("Autoformat-on-save disabled for nixpkgs", "info")
-        else
-          show_notification("Autoformat-on-save enabled for nixpkgs", "info")
-        end
       else
-        vim.b.disable_autoformat = not vim.b.disable_autoformat
-        if vim.b.disable_autoformat then
-          show_notification("Autoformat-on-save disabled for this buffer", "info")
-        else
-          show_notification("Autoformat-on-save enabled for this buffer", "info")
-        end
+        vim.g.disable_autoformat = not vim.g.disable_autoformat
       end
+
+      local disabled = args.bang and vim.b.disable_autoformat or vim.g.disable_autoformat
+      show_notification(
+        ("Autoformat-on-save %s for %s"):format(disabled and "disabled" or "enabled", scope),
+        "info",
+        "conform.nvim"
+      )
     end, {
       desc = "Toggle autoformat-on-save",
       bang = true,
     })
-
-    local filtered_message = { "No information available" }
-
-    -- Override notify function to filter out messages
-    ---@diagnostic disable-next-line: duplicate-set-field
-    vim.notify = function(message, level, opts)
-      local merged_opts = vim.tbl_extend("force", {
-        on_open = function(win)
-          local buf = vim.api.nvim_win_get_buf(win)
-          vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
-        end,
-      }, opts or {})
-
-      for _, msg in ipairs(filtered_message) do
-        if message == msg then
-          return
-        end
-      end
-      return notify(message, level, merged_opts)
-    end
   '';
 }

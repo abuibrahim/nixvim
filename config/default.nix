@@ -91,8 +91,6 @@
     foldenable = true;
     foldlevelstart = -1; # -1 uses foldlevel value
     foldtext = ""; # Empty uses builtin foldtext
-    foldmethod = "expr";
-    foldexpr = "v:lua.vim.treesitter.foldexpr()";
     fillchars = {
       horiz = "━";
       horizup = "┻";

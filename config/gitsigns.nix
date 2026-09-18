@@ -73,14 +73,5 @@
         desc = "Stage Buffer";
       };
     }
-    {
-      mode = "n";
-      key = "<leader>gu";
-      action = ":Gitsigns undo_stage_hunk<CR>";
-      options = {
-        silent = true;
-        desc = "Undo Stage Hunk";
-      };
-    }
   ];
 }

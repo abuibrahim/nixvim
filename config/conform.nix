@@ -1,8 +1,19 @@
 {
   plugins.conform-nvim = {
     enable = true;
+    autoInstall.enable = true;
+
     settings = {
       notify_on_error = true;
+
+      formatters_by_ft = {
+        nix = [ "nixfmt" ];
+        lua = [ "stylua" ];
+        json = [ "jq" ];
+        sh = [ "shfmt" ];
+        "_" = [ "trim_whitespace" ];
+      };
+
       format_on_save = ''
         function(bufnr)
           -- Disable with a global or buffer-local variable

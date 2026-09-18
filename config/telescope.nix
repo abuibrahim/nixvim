@@ -28,7 +28,7 @@
       };
       "<leader>b" = {
         action = "buffers";
-        options.desc = "+buffer";
+        options.desc = "Buffers";
       };
 
       # LSP-powered search (only useful with a server attached, harmless otherwise)
