@@ -51,7 +51,6 @@
     relativenumber = true;
     cursorline = true;
     signcolumn = "yes";
-    colorcolumn = "80";
     laststatus = 3; # Global statusline
     showtabline = 2;
     showmode = false;
