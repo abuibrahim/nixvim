@@ -10,6 +10,11 @@
 
       flavour = "mocha";
 
+      float = {
+        transparent = true;
+        solid = false;
+      };
+
       integrations = {
         indent_blankline = {
           enabled = true;
@@ -19,10 +24,7 @@
         lsp_trouble = true;
         noice = true;
         notify = true;
-        telescope = {
-          enabled = true;
-          style = "nvchad";
-        };
+        telescope.enabled = true;
         which_key = true;
       };
 
