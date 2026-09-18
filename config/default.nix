@@ -1,6 +1,7 @@
 {
   # Import all your configuration modules here
   imports = [
+    ./blink-cmp.nix
     ./bufferline.nix
     ./catppuccin.nix
     ./conform.nix
@@ -16,6 +17,11 @@
     ./which-key.nix
     ./keymaps.nix
   ];
+
+  diagnostic.settings = {
+    severity_sort = true;
+    virtual_lines.current_line = true;
+  };
 
   globals = {
     mapleader = " ";
@@ -53,6 +59,8 @@
     # Windows & Splits
     splitbelow = true;
     splitright = true;
+    scrolloff = 4;
+    sidescrolloff = 8;
 
     # Mouse
     mouse = "a";
@@ -60,6 +68,7 @@
 
     # Search
     incsearch = true;
+    inccommand = "split";
     ignorecase = true; # Case-insensitive search
     smartcase = true; # Unless pattern contains uppercase
 
@@ -123,6 +132,7 @@
     report = 9001; # Disable "x more/fewer lines" messages
 
     # Editor Behavior
+    confirm = true;
     virtualedit = "block";
     startofline = true;
     title = true;
