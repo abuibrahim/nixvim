@@ -214,6 +214,18 @@
               hl_shortcut = "Keyword";
             };
           }
+          {
+            type = "padding";
+            val = 2;
+          }
+          {
+            opts = {
+              hl = "AlphaFooter";
+              position = "center";
+            };
+            type = "text";
+            val.__raw = ''function() return os.date("󰃭  %A, %d %B %Y") end'';
+          }
         ];
       };
     };
