@@ -11,6 +11,7 @@
         bash
         c
         cpp
+        devicetree
         diff
         git_config
         git_rebase

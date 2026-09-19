@@ -27,6 +27,7 @@
         enable = true;
         packageFallback = true;
       };
+      dts_lsp.enable = true;
       lua_ls.enable = true;
       nixd.enable = true;
       pyright.enable = true;
