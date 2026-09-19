@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   plugins.lsp = {
     enable = true;
@@ -27,7 +28,17 @@
         enable = true;
         packageFallback = true;
       };
-      dts_lsp.enable = true;
+      dts_lsp = {
+        enable = true;
+        package = pkgs.dts-lsp.overrideAttrs (_: {
+          src = pkgs.fetchFromGitHub {
+            owner = "abuibrahim";
+            repo = "dts-lsp";
+            rev = "d542203503a24b26121df541b3fd7c4112b64f97";
+            hash = "sha256-84poc4yZJxZl/phWEyYJUWtBETKFPvhQV55x6ujwyTo=";
+          };
+        });
+      };
       lua_ls.enable = true;
       nixd.enable = true;
       pyright.enable = true;
