@@ -80,6 +80,23 @@ check("persistence save hook active", require("persistence").active() == true)
 check("surround on gs prefix", mapped("n", "gsa"), nil)
 check("normal-mode s left alone", not mapped("n", "s"), nil)
 
+-- neo-tree reads `enabled`; `enable` sits beside the default and does nothing.
+local follow = require("neo-tree").ensure_config().filesystem.follow_current_file
+check("neo-tree follows current file", follow.enabled == true, follow)
+
+-- a '' string keeps its trailing newline, which lands in the rhs as <NL>.
+local un = vim.fn.maparg(" un", "n")
+check("<leader>un rhs has no trailing <NL>", un ~= "" and not un:find("<NL>", 1, true), un)
+
+-- which-key prepends icons.group itself; a leading "+" renders as "++".
+local wk_groups = {}
+for _, s in ipairs(require("which-key.config").options.spec or {}) do
+  if s.group and s.group:sub(1, 1) == "+" then
+    wk_groups[#wk_groups + 1] = s.group
+  end
+end
+check("which-key groups carry no leading +", #wk_groups == 0, wk_groups)
+
 -- completion exists at all, with its compiled matcher.
 check("blink.cmp loads", (pcall(require, "blink.cmp")))
 check("blink fuzzy matcher loads", (pcall(require, "blink.cmp.fuzzy")))

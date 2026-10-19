@@ -5,7 +5,7 @@
       settings = {
         icons = {
           breadcrumb = "»";
-          group = "+";
+          group = "";
           separator = "➜";
         };
         spec = [
@@ -15,7 +15,7 @@
               "n"
               "v"
             ];
-            group = "+code";
+            group = "code";
           }
           {
             __unkeyed-1 = "<leader>g";
@@ -23,22 +23,22 @@
               "n"
               "v"
             ];
-            group = "+git";
+            group = "git";
           }
           {
             __unkeyed-1 = "<leader>s";
             mode = [ "n" ];
-            group = "+search";
+            group = "search";
           }
           {
             __unkeyed-1 = "<leader><Tab>";
             mode = [ "n" ];
-            group = "+tab";
+            group = "tab";
           }
           {
             __unkeyed-1 = "<leader>q";
             mode = [ "n" ];
-            group = "+quit/session";
+            group = "quit/session";
           }
           {
             __unkeyed-1 = "gs";
@@ -46,22 +46,22 @@
               "n"
               "v"
             ];
-            group = "+surround";
+            group = "surround";
           }
           {
             __unkeyed-1 = "<leader>x";
             mode = [ "n" ];
-            group = "+diagnostics/quickfix";
+            group = "diagnostics/quickfix";
           }
           {
             __unkeyed-1 = "<leader>u";
             mode = [ "n" ];
-            group = "+ui";
+            group = "ui";
           }
           {
             __unkeyed-1 = "<leader>w";
             mode = [ "n" ];
-            group = "+windows";
+            group = "windows";
           }
         ];
       };

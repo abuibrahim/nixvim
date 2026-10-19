@@ -8,7 +8,7 @@
       enable_refresh_on_write = true;
       popup_border_style = "rounded";
       filesystem.follow_current_file = {
-        enable = true;
+        enabled = true;
         leave_dirs_open = true;
       };
     };

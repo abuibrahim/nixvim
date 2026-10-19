@@ -2,8 +2,7 @@
   plugins.notify = {
     enable = true;
     settings = {
-      topDown = true;
-      backgroundColour = "#000000";
+      background_colour = "#000000";
       fps = 60;
       render = "default";
       timeout = 500;
@@ -14,9 +13,7 @@
     {
       mode = "n";
       key = "<leader>un";
-      action = ''
-        <cmd>lua require("notify").dismiss({ silent = true, pending = true })<cr>
-      '';
+      action = "<cmd>lua require('notify').dismiss({ silent = true, pending = true })<CR>";
       options = {
         desc = "Dismiss All Notifications";
       };
