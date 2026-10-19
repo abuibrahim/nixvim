@@ -113,7 +113,7 @@
       action = "<cmd>quitall<CR>";
       options = {
         silent = true;
-        desc = "Quit all";
+        desc = "Quit All";
       };
     }
 
@@ -121,7 +121,15 @@
     {
       mode = "n";
       key = "<leader>ul";
-      action = ":lua ToggleLineNumber()<CR>";
+      action.__raw = ''
+        function()
+          vim.wo.number = not vim.wo.number
+          if vim.wo.number then
+            vim.wo.relativenumber = false
+          end
+          vim.notify("Line numbers " .. (vim.wo.number and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
+        end
+      '';
       options = {
         silent = true;
         desc = "Toggle Line Numbers";
@@ -130,7 +138,15 @@
     {
       mode = "n";
       key = "<leader>uL";
-      action = ":lua ToggleRelativeLineNumber()<CR>";
+      action.__raw = ''
+        function()
+          vim.wo.relativenumber = not vim.wo.relativenumber
+          if vim.wo.relativenumber then
+            vim.wo.number = false
+          end
+          vim.notify("Relative line numbers " .. (vim.wo.relativenumber and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
+        end
+      '';
       options = {
         silent = true;
         desc = "Toggle Relative Line Numbers";
@@ -139,10 +155,30 @@
     {
       mode = "n";
       key = "<leader>uw";
-      action = ":lua ToggleWrap()<CR>";
+      action.__raw = ''
+        function()
+          vim.wo.wrap = not vim.wo.wrap
+          vim.notify("Wrap " .. (vim.wo.wrap and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
+        end
+      '';
       options = {
         silent = true;
         desc = "Toggle Line Wrap";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>uh";
+      action.__raw = ''
+        function()
+          local enabled = not vim.lsp.inlay_hint.is_enabled()
+          vim.lsp.inlay_hint.enable(enabled)
+          vim.notify("Inlay hints " .. (enabled and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
+        end
+      '';
+      options = {
+        silent = true;
+        desc = "Toggle Inlay Hints";
       };
     }
 
@@ -152,7 +188,7 @@
       action = "<gv";
       options = {
         silent = true;
-        desc = "Indent while remaining in visual mode.";
+        desc = "Indent Left";
       };
     }
 
@@ -162,7 +198,7 @@
       action = ">gv";
       options = {
         silent = true;
-        desc = "Indent while remaining in visual mode.";
+        desc = "Indent Right";
       };
     }
 
@@ -175,7 +211,8 @@
       key = "<leader>y";
       action = "\"+y";
       options = {
-        desc = "Copy to system clipboard";
+        silent = true;
+        desc = "Copy to System Clipboard";
       };
     }
 
@@ -196,7 +233,8 @@
       key = "<leader>ui";
       action = "<cmd>IBLToggle<CR>";
       options = {
-        desc = "Indent-Blankline toggle";
+        silent = true;
+        desc = "Toggle Indent Guides";
       };
     }
     {
@@ -204,7 +242,8 @@
       key = "<leader>uI";
       action = "<cmd>IBLToggleScope<CR>";
       options = {
-        desc = "Indent-Blankline Scope toggle";
+        silent = true;
+        desc = "Toggle Indent Scope";
       };
     }
   ];

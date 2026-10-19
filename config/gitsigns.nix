@@ -1,12 +1,7 @@
 {
-  plugins = {
-    gitsigns = {
-      enable = true;
-      settings = {
-        trouble = true;
-      };
-    };
-    trouble.enable = true;
+  plugins.gitsigns = {
+    enable = true;
+    settings.trouble = true;
   };
 
   keymaps = [
@@ -47,7 +42,7 @@
     {
       mode = "n";
       key = "]H";
-      action = "<cmd>lua require('gitsigns').nav_hunk('last')<CR>";
+      action.__raw = "function() require('gitsigns').nav_hunk('last') end";
       options = {
         silent = true;
         desc = "Last Hunk";
@@ -56,7 +51,7 @@
     {
       mode = "n";
       key = "[H";
-      action = "<cmd>lua require('gitsigns').nav_hunk('first')<CR>";
+      action.__raw = "function() require('gitsigns').nav_hunk('first') end";
       options = {
         silent = true;
         desc = "First Hunk";
@@ -65,7 +60,7 @@
     {
       mode = "n";
       key = "<leader>gb";
-      action = ":Gitsigns blame_line<CR>";
+      action = "<cmd>Gitsigns blame_line<CR>";
       options = {
         silent = true;
         desc = "Blame Line";
@@ -74,7 +69,7 @@
     {
       mode = "n";
       key = "<leader>gd";
-      action = ":Gitsigns diffthis<CR>";
+      action = "<cmd>Gitsigns diffthis<CR>";
       options = {
         silent = true;
         desc = "Diff This";
@@ -83,7 +78,7 @@
     {
       mode = "n";
       key = "<leader>gp";
-      action = ":Gitsigns preview_hunk<CR>";
+      action = "<cmd>Gitsigns preview_hunk<CR>";
       options = {
         silent = true;
         desc = "Preview Hunk";
@@ -92,7 +87,7 @@
     {
       mode = "n";
       key = "<leader>gr";
-      action = ":Gitsigns reset_hunk<CR>";
+      action = "<cmd>Gitsigns reset_hunk<CR>";
       options = {
         silent = true;
         desc = "Reset Hunk";
@@ -101,7 +96,7 @@
     {
       mode = "n";
       key = "<leader>gR";
-      action = ":Gitsigns reset_buffer<CR>";
+      action = "<cmd>Gitsigns reset_buffer<CR>";
       options = {
         silent = true;
         desc = "Reset Buffer";
@@ -110,7 +105,7 @@
     {
       mode = "n";
       key = "<leader>gs";
-      action = ":Gitsigns stage_hunk<CR>";
+      action = "<cmd>Gitsigns stage_hunk<CR>";
       options = {
         silent = true;
         desc = "Stage Hunk";
@@ -119,7 +114,7 @@
     {
       mode = "n";
       key = "<leader>gS";
-      action = ":Gitsigns stage_buffer<CR>";
+      action = "<cmd>Gitsigns stage_buffer<CR>";
       options = {
         silent = true;
         desc = "Stage Buffer";

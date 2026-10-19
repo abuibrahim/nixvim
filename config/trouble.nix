@@ -1,4 +1,6 @@
 {
+  plugins.trouble.enable = true;
+
   keymaps = [
     {
       mode = "n";

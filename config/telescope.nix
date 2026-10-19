@@ -9,33 +9,54 @@
     keymaps = {
       "<leader><space>" = {
         action = "find_files";
-        options.desc = "Find project files";
+        options = {
+          silent = true;
+          desc = "Find Project Files";
+        };
       };
       "<leader>/" = {
         action = "live_grep";
-        options.desc = "Grep (root dir)";
+        options = {
+          silent = true;
+          desc = "Grep (Root Dir)";
+        };
       };
       "<leader>:" = {
         action = "command_history";
-        options.desc = "Command history";
+        options = {
+          silent = true;
+          desc = "Command History";
+        };
       };
       "<leader>b" = {
         action = "buffers";
-        options.desc = "Buffers";
+        options = {
+          silent = true;
+          desc = "Buffers";
+        };
       };
 
       # LSP-powered search (only useful with a server attached, harmless otherwise)
       "<leader>ss" = {
         action = "lsp_document_symbols";
-        options.desc = "Goto Symbol (document)";
+        options = {
+          silent = true;
+          desc = "Goto Symbol (Document)";
+        };
       };
       "<leader>sS" = {
         action = "lsp_dynamic_workspace_symbols";
-        options.desc = "Goto Symbol (workspace)";
+        options = {
+          silent = true;
+          desc = "Goto Symbol (Workspace)";
+        };
       };
       "<leader>sd" = {
         action = "diagnostics";
-        options.desc = "Diagnostics";
+        options = {
+          silent = true;
+          desc = "Diagnostics";
+        };
       };
     };
   };

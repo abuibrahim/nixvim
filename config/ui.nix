@@ -78,7 +78,7 @@
               keymap = [
                 "n"
                 "f"
-                ":Telescope find_files <CR>"
+                "<cmd>Telescope find_files<CR>"
                 {
                   noremap = true;
                   silent = true;
@@ -108,7 +108,7 @@
               keymap = [
                 "n"
                 "n"
-                ":ene <BAR> startinsert <CR>"
+                "<cmd>ene <BAR> startinsert<CR>"
                 {
                   noremap = true;
                   silent = true;
@@ -138,7 +138,7 @@
               keymap = [
                 "n"
                 "r"
-                ":Telescope oldfiles <CR>"
+                "<cmd>Telescope oldfiles<CR>"
                 {
                   noremap = true;
                   silent = true;
@@ -168,7 +168,7 @@
               keymap = [
                 "n"
                 "g"
-                ":Telescope live_grep <CR>"
+                "<cmd>Telescope live_grep<CR>"
                 {
                   noremap = true;
                   silent = true;
@@ -198,7 +198,7 @@
               keymap = [
                 "n"
                 "q"
-                ":qa<CR>"
+                "<cmd>qa<CR>"
                 {
                   noremap = true;
                   silent = true;

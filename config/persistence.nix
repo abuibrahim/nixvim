@@ -5,7 +5,7 @@
     {
       mode = "n";
       key = "<leader>qs";
-      action = "<cmd>lua require('persistence').load()<CR>";
+      action.__raw = "function() require('persistence').load() end";
       options = {
         silent = true;
         desc = "Restore Session";
@@ -14,7 +14,7 @@
     {
       mode = "n";
       key = "<leader>ql";
-      action = "<cmd>lua require('persistence').load({ last = true })<CR>";
+      action.__raw = "function() require('persistence').load({ last = true }) end";
       options = {
         silent = true;
         desc = "Restore Last Session";
@@ -23,7 +23,7 @@
     {
       mode = "n";
       key = "<leader>qS";
-      action = "<cmd>lua require('persistence').select()<CR>";
+      action.__raw = "function() require('persistence').select() end";
       options = {
         silent = true;
         desc = "Select Session";
@@ -32,7 +32,7 @@
     {
       mode = "n";
       key = "<leader>qd";
-      action = "<cmd>lua require('persistence').stop()<CR>";
+      action.__raw = "function() require('persistence').stop() end";
       options = {
         silent = true;
         desc = "Don't Save Current Session";
