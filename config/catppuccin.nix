@@ -2,18 +2,9 @@
   colorschemes.catppuccin = {
     enable = true;
     settings = {
-      default_integrations = true;
-      dim_inactive = {
-        enabled = false;
-        percentage = 0.25;
-      };
-
       flavour = "mocha";
 
-      float = {
-        transparent = true;
-        solid = false;
-      };
+      float.transparent = true;
 
       integrations = {
         indent_blankline = {

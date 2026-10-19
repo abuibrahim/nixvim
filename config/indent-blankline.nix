@@ -9,24 +9,6 @@
         enabled = true;
         show_start = true;
       };
-      exclude = {
-        buftypes = [
-          "terminal"
-          "nofile"
-        ];
-        filetypes = [
-          "help"
-          "dashboard"
-          "neo-tree"
-          "Trouble"
-          "trouble"
-          "lazy"
-          "mason"
-          "notify"
-          "toggleterm"
-          "lazyterm"
-        ];
-      };
     };
   };
 }

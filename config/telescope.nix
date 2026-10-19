@@ -2,15 +2,8 @@
   plugins.telescope = {
     enable = true;
     extensions = {
-      fzf-native = {
-        enable = true;
-        settings = {
-          fuzzy = true;
-        };
-      };
-      ui-select = {
-        enable = true;
-      };
+      fzf-native.enable = true;
+      ui-select.enable = true;
     };
 
     keymaps = {

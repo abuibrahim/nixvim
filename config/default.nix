@@ -28,21 +28,17 @@
     virtual_lines.current_line = true;
   };
 
-  globals = {
-    mapleader = " ";
+  globals.mapleader = " ";
 
-    # Disable useless providers
-    loaded_ruby_provider = 0; # Ruby
-    loaded_perl_provider = 0; # Perl
-    loaded_python_provider = 0; # Python 2
-  };
+  withRuby = false;
+  withPython3 = false;
 
   opts = {
     # Performance & Timing
     updatetime = 100; # CursorHold delay; faster completion and git signs
     synmaxcol = 240; # Disable syntax highlighting for long lines
     timeoutlen = 500; # Key sequence timeout (ms)
-    smoothscroll = true; # Smooth scrolling with Ctrl-D/U
+    smoothscroll = true; # Scroll wrapped lines by screen line
 
     # Project-local config
     exrc = true; # Enable .nvim.lua, .nvimrc, .exrc in project directories
@@ -57,7 +53,6 @@
     showmode = false;
     showmatch = true;
     matchtime = 1; # Flash duration in deciseconds
-    termguicolors = true;
     winborder = "rounded";
 
     # Windows & Splits
@@ -71,7 +66,6 @@
     mousemodel = "extend"; # Right-click extends selection
 
     # Search
-    incsearch = true;
     inccommand = "split";
     ignorecase = true; # Case-insensitive search
     smartcase = true; # Unless pattern contains uppercase
@@ -82,14 +76,12 @@
     autoread = true;
     writebackup = false;
     fileencoding = "utf-8";
-    modeline = true; # Scan for editor directives like 'vim: set ft=nix:'
     modelines = 100; # Scan first/last 100 lines for modelines
 
     # Indentation & Formatting
     tabstop = 2;
     shiftwidth = 2;
     expandtab = true;
-    autoindent = true;
     breakindent = true;
     copyindent = true;
     preserveindent = true;
@@ -99,7 +91,6 @@
     # Folding
     foldlevel = 99; # Keep folds open by default
     foldcolumn = "1";
-    foldenable = true;
     foldtext = ""; # Empty uses builtin foldtext
     fillchars = {
       horiz = "━";

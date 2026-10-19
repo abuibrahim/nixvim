@@ -97,6 +97,17 @@ for _, s in ipairs(require("which-key.config").options.spec or {}) do
 end
 check("which-key groups carry no leading +", #wk_groups == 0, wk_groups)
 
+-- providers are dropped from the closure, not just disabled at runtime.
+check("no ruby host bundled", vim.g.ruby_host_prog == nil, vim.g.ruby_host_prog)
+check("no python3 host bundled", vim.g.python3_host_prog == nil, vim.g.python3_host_prog)
+check("ruby provider off", vim.g.loaded_ruby_provider == 0, vim.g.loaded_ruby_provider)
+check("python3 provider off", vim.g.loaded_python3_provider == 0, vim.g.loaded_python3_provider)
+
+-- bufferline derives its own colours unless handed catppuccin's theme.
+local sep = vim.api.nvim_get_hl(0, { name = "BufferLineSeparator", link = false })
+local surface1 = tonumber(require("catppuccin.palettes").get_palette().surface1:sub(2), 16)
+check("bufferline uses catppuccin theme", sep.fg == surface1, sep.fg)
+
 -- completion exists at all, with its compiled matcher.
 check("blink.cmp loads", (pcall(require, "blink.cmp")))
 check("blink fuzzy matcher loads", (pcall(require, "blink.cmp.fuzzy")))
