@@ -29,28 +29,22 @@
     // flake-utils.lib.eachDefaultSystem (
       system:
       let
-        nixvimLib = nixvim.lib.${system};
         pkgs = import nixpkgs {
           inherit system;
           config = nixpkgsConfig;
         };
-        nixvim' = nixvim.legacyPackages.${system};
-        nvim = nixvim'.makeNixvimWithModule {
-          inherit pkgs;
-          module = config;
-          # You can use `extraSpecialArgs` to pass additional arguments to your module files
-          extraSpecialArgs = {
-            inherit self;
-          };
+        configuration = nixvim.lib.evalNixvim {
+          modules = [
+            config
+            { nixpkgs.pkgs = pkgs; }
+          ];
         };
+        nvim = configuration.config.build.package;
       in
       {
         checks = {
           # Run `nix flake check .` to verify that your config is not broken
-          default = nixvimLib.check.mkTestDerivationFromNvim {
-            inherit nvim;
-            name = "nvim";
-          };
+          default = configuration.config.build.test;
 
           assertions = pkgs.runCommand "nvim-assertions" { } ''
             export HOME="$(mktemp -d)"
