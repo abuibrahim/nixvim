@@ -11,7 +11,6 @@
     ./lsp.nix
     ./lualine.nix
     ./mini-surround.nix
-    ./neo-tree.nix
     ./notify.nix
     ./persistence.nix
     ./ui.nix

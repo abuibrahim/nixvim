@@ -80,10 +80,6 @@ check("persistence save hook active", require("persistence").active() == true)
 check("surround on gs prefix", mapped("n", "gsa"), nil)
 check("normal-mode s left alone", not mapped("n", "s"), nil)
 
--- neo-tree reads `enabled`; `enable` sits beside the default and does nothing.
-local follow = require("neo-tree").ensure_config().filesystem.follow_current_file
-check("neo-tree follows current file", follow.enabled == true, follow)
-
 -- a '' string keeps its trailing newline, which lands in the rhs as <NL>.
 local un = vim.fn.maparg(" un", "n")
 check("<leader>un rhs has no trailing <NL>", un ~= "" and not un:find("<NL>", 1, true), un)
@@ -116,6 +112,7 @@ check("blink.pairs loads", (pcall(require, "blink.pairs")))
 -- plugins deliberately removed should stay gone.
 check("real nvim-web-devicons absent", #vim.api.nvim_get_runtime_file("lua/nvim-web-devicons.lua", false) == 0)
 check("barbecue absent", not pcall(require, "barbecue"))
+check("neo-tree absent", not pcall(require, "neo-tree"))
 
 if #failures > 0 then
   io.stderr:write(("\nnvim assertions: %d passed, %d FAILED\n"):format(passed, #failures))
