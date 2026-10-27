@@ -56,28 +56,36 @@
       desc = "Pipe LSP progress directly to Ghostty OSC 9;4 progress bar";
       callback = {
         __raw = ''
-          function(ev)
-            local client = vim.lsp.get_client_by_id(ev.data.client_id)
-            if not client then return end
+          (function()
+            -- In-flight progress tokens, keyed by client and token, so one
+            -- server finishing does not clear the bar while another works.
+            local active = {}
 
-            local value = ev.data.params.value
-            if not value then return end
+            return function(ev)
+              local value = ev.data.params.value
+              if type(value) ~= "table" then return end
+              local key = ev.data.client_id .. ":" .. tostring(ev.data.params.token)
 
-            -- OSC 9;4;<type>;<percentage>\27\\
-            -- Types: 0 = clear, 1 = static, 3 = indeterminate pulsing
-            if value.kind == "begin" then
-              -- Initialize pulsing bar on start
-              vim.api.nvim_ui_send("\27]9;4;3;\27\\")
-            elseif value.kind == "report" then
-              if value.percentage then
-                -- Update to a static percentage bar if data exists
-                vim.api.nvim_ui_send(string.format("\27]9;4;1;%d\27\\", value.percentage))
+              -- OSC 9;4;<type>;<percentage>\27\\
+              -- Types: 0 = clear, 1 = static, 3 = indeterminate pulsing
+              if value.kind == "begin" then
+                -- Initialize pulsing bar on start
+                active[key] = true
+                vim.api.nvim_ui_send("\27]9;4;3;\27\\")
+              elseif value.kind == "report" then
+                if value.percentage then
+                  -- Update to a static percentage bar if data exists
+                  vim.api.nvim_ui_send(string.format("\27]9;4;1;%d\27\\", value.percentage))
+                end
+              elseif value.kind == "end" then
+                -- Clear the progress bar once nothing is left in flight
+                active[key] = nil
+                if next(active) == nil then
+                  vim.api.nvim_ui_send("\27]9;4;0;\27\\")
+                end
               end
-            elseif value.kind == "end" then
-              -- Clear the progress bar when finished
-              vim.api.nvim_ui_send("\27]9;4;0;\27\\")
             end
-          end
+          end)()
         '';
       };
     }

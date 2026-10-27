@@ -109,6 +109,48 @@ check("blink.cmp loads", (pcall(require, "blink.cmp")))
 check("blink fuzzy matcher loads", (pcall(require, "blink.cmp.fuzzy")))
 check("blink.pairs loads", (pcall(require, "blink.pairs")))
 
+-- "_" must not shadow the servers' formatting: its formatter would stop
+-- lsp_format = "fallback" from ever reaching ruff.
+local py = vim.fn.tempname() .. ".py"
+vim.fn.writefile({ "x=[1,2]" }, py)
+vim.cmd.edit(py)
+vim.wait(10000, function()
+  local ruff = vim.lsp.get_clients({ bufnr = 0, name = "ruff" })[1]
+  return ruff and ruff.initialized and ruff:supports_method("textDocument/formatting")
+end)
+require("conform").format({ lsp_format = "fallback" })
+local line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1]
+check("python is formatted by ruff", line == "x = [1, 2]", line)
+
+-- <leader>ul hides every number, hybrid included, and restores both.
+vim.notify = function() end
+vim.wo.number, vim.wo.relativenumber = true, true
+vim.api.nvim_feedkeys(vim.keycode(" ul"), "x", false)
+check("<leader>ul hides all numbers", not vim.wo.number and not vim.wo.relativenumber, { vim.wo.number, vim.wo.relativenumber })
+vim.api.nvim_feedkeys(vim.keycode(" ul"), "x", false)
+check("<leader>ul restores hybrid numbers", vim.wo.number and vim.wo.relativenumber, { vim.wo.number, vim.wo.relativenumber })
+
+-- the progress bar clears only once all in-flight progress has ended.
+local sent = {}
+local ui_send = vim.api.nvim_ui_send
+vim.api.nvim_ui_send = function(s)
+  sent[#sent + 1] = s
+end
+local ruff_id = vim.lsp.get_clients({ name = "ruff" })[1].id
+local function progress(token, kind)
+  vim.api.nvim_exec_autocmds("LspProgress", {
+    data = { client_id = ruff_id, params = { token = token, value = { kind = kind } } },
+  })
+end
+local clear = "\27]9;4;0;\27\\"
+progress("a", "begin")
+progress("b", "begin")
+progress("a", "end")
+check("progress bar kept while work remains", not vim.tbl_contains(sent, clear), sent)
+progress("b", "end")
+check("progress bar cleared when all finish", sent[#sent] == clear, sent)
+vim.api.nvim_ui_send = ui_send
+
 -- plugins deliberately removed should stay gone.
 check("real nvim-web-devicons absent", #vim.api.nvim_get_runtime_file("lua/nvim-web-devicons.lua", false) == 0)
 check("barbecue absent", not pcall(require, "barbecue"))

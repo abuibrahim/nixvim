@@ -123,11 +123,10 @@
       key = "<leader>ul";
       action.__raw = ''
         function()
-          vim.wo.number = not vim.wo.number
-          if vim.wo.number then
-            vim.wo.relativenumber = false
-          end
-          vim.notify("Line numbers " .. (vim.wo.number and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
+          local enabled = not (vim.wo.number or vim.wo.relativenumber)
+          vim.wo.number = enabled
+          vim.wo.relativenumber = enabled
+          vim.notify("Line numbers " .. (enabled and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
         end
       '';
       options = {
@@ -141,9 +140,6 @@
       action.__raw = ''
         function()
           vim.wo.relativenumber = not vim.wo.relativenumber
-          if vim.wo.relativenumber then
-            vim.wo.number = false
-          end
           vim.notify("Relative line numbers " .. (vim.wo.relativenumber and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
         end
       '';

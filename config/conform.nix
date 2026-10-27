@@ -22,6 +22,17 @@
         end
       '';
     };
+
+    # Formatted by their language servers (ruff, rust-analyzer, clangd).
+    # Without an entry these would match "_", and its formatter would stop
+    # lsp_format = "fallback" from ever reaching the server. Set after setup
+    # because autoInstall reads every string under formatters_by_ft as a
+    # formatter name, "prefer" included.
+    luaConfig.post = ''
+      for _, ft in ipairs({ "python", "rust", "c", "cpp" }) do
+        require("conform").formatters_by_ft[ft] = { lsp_format = "prefer" }
+      end
+    '';
   };
 
   userCommands.FormatToggle = {
