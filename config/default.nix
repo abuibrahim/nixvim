@@ -4,14 +4,15 @@
     ./blink-cmp.nix
     ./blink-pairs.nix
     ./bufferline.nix
-    ./catppuccin.nix
+    ./theme.nix
     ./conform.nix
+    ./dashboard.nix
     ./indent-blankline.nix
     ./gitsigns.nix
     ./lsp.nix
     ./lualine.nix
     ./mini-surround.nix
-    ./notify.nix
+    ./notifier.nix
     ./persistence.nix
     ./ui.nix
     ./telescope.nix

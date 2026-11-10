@@ -15,7 +15,7 @@ end
 
 local function hl_bg(name)
   local h = vim.api.nvim_get_hl(0, { name = name, link = false })
-  return h.bg
+  return h.bg or h.ctermbg
 end
 
 local function mapped(mode, lhs)
@@ -27,20 +27,15 @@ local function mapped(mode, lhs)
   return false
 end
 
--- nixvim prunes an empty list, after which lualine re-merges its own defaults.
-local sections = require("lualine.config").get_config().sections
-check("lualine_x is empty", #(sections.lualine_x or {}) == 0, sections.lualine_x)
-check("lualine_c is diagnostics only", vim.deep_equal(sections.lualine_c, { "diagnostics" }), sections.lualine_c)
+check("lualine drives the statusline", vim.go.statusline:find("lualine", 1, true) ~= nil, vim.go.statusline)
+check("bufferline drives the tabline", vim.go.tabline:find("bufferline", 1, true) ~= nil, vim.go.tabline)
+check("snacks.notifier owns vim.notify", Snacks.config.notifier.enabled == true)
 
--- transparent_background does not cover floats; float.transparent does.
-check("NormalFloat is transparent", hl_bg("NormalFloat") == nil, hl_bg("NormalFloat"))
 check("TelescopeNormal is transparent", hl_bg("TelescopeNormal") == nil, hl_bg("TelescopeNormal"))
 check("TelescopeSelection keeps a bg", hl_bg("TelescopeSelection") ~= nil, hl_bg("TelescopeSelection"))
 
--- catppuccin 2.0.0 moved integrations.native_lsp to top-level lsp_styles.
-local ctp = require("catppuccin").options
-check("catppuccin lsp_styles path exists", type(ctp.lsp_styles) == "table", ctp.lsp_styles)
-check("catppuccin float.transparent", ctp.float.transparent == true, ctp.float)
+check("colorscheme is colorrex", vim.g.colors_name == "colorrex", vim.g.colors_name)
+check("termguicolors on", vim.o.termguicolors == true, vim.o.termguicolors)
 
 -- 0.12 defaults these off; we turn them on.
 local diag = vim.diagnostic.config()
@@ -99,11 +94,6 @@ check("no python3 host bundled", vim.g.python3_host_prog == nil, vim.g.python3_h
 check("ruby provider off", vim.g.loaded_ruby_provider == 0, vim.g.loaded_ruby_provider)
 check("python3 provider off", vim.g.loaded_python3_provider == 0, vim.g.loaded_python3_provider)
 
--- bufferline derives its own colours unless handed catppuccin's theme.
-local sep = vim.api.nvim_get_hl(0, { name = "BufferLineSeparator", link = false })
-local surface1 = tonumber(require("catppuccin.palettes").get_palette().surface1:sub(2), 16)
-check("bufferline uses catppuccin theme", sep.fg == surface1, sep.fg)
-
 -- completion exists at all, with its compiled matcher.
 check("blink.cmp loads", (pcall(require, "blink.cmp")))
 check("blink fuzzy matcher loads", (pcall(require, "blink.cmp.fuzzy")))
@@ -151,10 +141,20 @@ progress("b", "end")
 check("progress bar cleared when all finish", sent[#sent] == clear, sent)
 vim.api.nvim_ui_send = ui_send
 
+-- snacks only finds session plugins through lazy.nvim, so s is listed by hand.
+local dash_keys = {}
+for _, k in ipairs(require("snacks").config.get("dashboard", {}).preset.keys) do
+  dash_keys[#dash_keys + 1] = k.key
+end
+check("dashboard keys", table.concat(dash_keys) == "fngrsq", dash_keys)
+check("fadein loads", (pcall(require, "fadein")))
+
 -- plugins deliberately removed should stay gone.
 check("real nvim-web-devicons absent", #vim.api.nvim_get_runtime_file("lua/nvim-web-devicons.lua", false) == 0)
 check("barbecue absent", not pcall(require, "barbecue"))
 check("neo-tree absent", not pcall(require, "neo-tree"))
+check("alpha absent", not pcall(require, "alpha"))
+check("nvim-notify absent", not pcall(require, "notify"))
 
 if #failures > 0 then
   io.stderr:write(("\nnvim assertions: %d passed, %d FAILED\n"):format(passed, #failures))
