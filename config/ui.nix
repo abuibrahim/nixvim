@@ -74,6 +74,7 @@
   plugins = {
     noice = {
       enable = true;
+      settings.notify.enabled = false;
       settings.routes = [
         {
           filter = {
