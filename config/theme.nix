@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   # for Neovim's own TUI; in neorex, its own runtime goes first
   extraPlugins = [
@@ -23,5 +23,5 @@
   '';
   colorscheme = "neorex";
   # the palette needs it off in the TUI and on in neorex
-  opts.termguicolors = lib.mkForce { __raw = "vim.g.neorex == true"; };
+  opts.termguicolors.__raw = "vim.g.neorex == true";
 }

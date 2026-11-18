@@ -1,246 +1,62 @@
+let
+  inherit (import ./map.nix) keymap nmap lua;
+in
 {
   keymaps = [
 
-    # Tabs
-    {
-      mode = "n";
-      key = "<leader><tab>f";
-      action = "<cmd>tabfirst<CR>";
-      options = {
-        silent = true;
-        desc = "First Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab>l";
-      action = "<cmd>tablast<CR>";
-      options = {
-        silent = true;
-        desc = "Last Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab><tab>";
-      action = "<cmd>tabnew<CR>";
-      options = {
-        silent = true;
-        desc = "New Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab>[";
-      action = "<cmd>tabprevious<CR>";
-      options = {
-        silent = true;
-        desc = "Previous Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab>]";
-      action = "<cmd>tabnext<CR>";
-      options = {
-        silent = true;
-        desc = "Next Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab>d";
-      action = "<cmd>tabclose<CR>";
-      options = {
-        silent = true;
-        desc = "Close Tab";
-      };
-    }
-
     # Windows
-    {
-      mode = "n";
-      key = "<leader>ww";
-      action = "<C-W>p";
-      options = {
-        silent = true;
-        desc = "Other Window";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>wd";
-      action = "<C-W>c";
-      options = {
-        silent = true;
-        desc = "Delete Window";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>w-";
-      action = "<C-W>s";
-      options = {
-        silent = true;
-        desc = "Split Window Below";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>w|";
-      action = "<C-W>v";
-      options = {
-        silent = true;
-        desc = "Split Window Right";
-      };
-    }
+    (nmap "<leader>ww" "<C-W>p" "Other Window")
+    (nmap "<leader>wd" "<C-W>c" "Delete Window")
+    (nmap "<leader>w-" "<C-W>s" "Split Window Below")
+    (nmap "<leader>w|" "<C-W>v" "Split Window Right")
 
     # Save
-    {
-      mode = "n";
-      key = "<C-s>";
-      action = "<cmd>w<CR>";
-      options = {
-        silent = true;
-        desc = "Save File";
-      };
-    }
+    (nmap "<C-s>" "<cmd>w<CR>" "Save File")
 
     # Quit/Session
-    {
-      mode = "n";
-      key = "<leader>qq";
-      action = "<cmd>quitall<CR>";
-      options = {
-        silent = true;
-        desc = "Quit All";
-      };
-    }
+    (nmap "<leader>qq" "<cmd>quitall<CR>" "Quit All")
 
     # Toggle
-    {
-      mode = "n";
-      key = "<leader>ul";
-      action.__raw = ''
-        function()
-          local enabled = not (vim.wo.number or vim.wo.relativenumber)
-          vim.wo.number = enabled
-          vim.wo.relativenumber = enabled
-          vim.notify("Line numbers " .. (enabled and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
-        end
-      '';
-      options = {
-        silent = true;
-        desc = "Toggle Line Numbers";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>uL";
-      action.__raw = ''
-        function()
-          vim.wo.relativenumber = not vim.wo.relativenumber
-          vim.notify("Relative line numbers " .. (vim.wo.relativenumber and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
-        end
-      '';
-      options = {
-        silent = true;
-        desc = "Toggle Relative Line Numbers";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>uw";
-      action.__raw = ''
-        function()
-          vim.wo.wrap = not vim.wo.wrap
-          vim.notify("Wrap " .. (vim.wo.wrap and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
-        end
-      '';
-      options = {
-        silent = true;
-        desc = "Toggle Line Wrap";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>uh";
-      action.__raw = ''
-        function()
-          local enabled = not vim.lsp.inlay_hint.is_enabled()
-          vim.lsp.inlay_hint.enable(enabled)
-          vim.notify("Inlay hints " .. (enabled and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
-        end
-      '';
-      options = {
-        silent = true;
-        desc = "Toggle Inlay Hints";
-      };
-    }
+    (nmap "<leader>ul" (lua ''
+      function()
+        local enabled = not (vim.wo.number or vim.wo.relativenumber)
+        vim.wo.number = enabled
+        vim.wo.relativenumber = enabled
+        vim.notify("Line numbers " .. (enabled and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
+      end
+    '') "Toggle Line Numbers")
+    (nmap "<leader>uL" (lua ''
+      function()
+        vim.wo.relativenumber = not vim.wo.relativenumber
+        vim.notify("Relative line numbers " .. (vim.wo.relativenumber and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
+      end
+    '') "Toggle Relative Line Numbers")
+    (nmap "<leader>uw" (lua ''
+      function()
+        vim.wo.wrap = not vim.wo.wrap
+        vim.notify("Wrap " .. (vim.wo.wrap and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
+      end
+    '') "Toggle Line Wrap")
+    (nmap "<leader>uh" (lua ''
+      function()
+        local enabled = not vim.lsp.inlay_hint.is_enabled()
+        vim.lsp.inlay_hint.enable(enabled)
+        vim.notify("Inlay hints " .. (enabled and "enabled" or "disabled"), vim.log.levels.INFO, { title = "nixvim" })
+      end
+    '') "Toggle Inlay Hints")
 
-    {
-      mode = "v";
-      key = "<";
-      action = "<gv";
-      options = {
-        silent = true;
-        desc = "Indent Left";
-      };
-    }
+    (keymap "v" "<" "<gv" "Indent Left")
 
-    {
-      mode = "v";
-      key = ">";
-      action = ">gv";
-      options = {
-        silent = true;
-        desc = "Indent Right";
-      };
-    }
+    (keymap "v" ">" ">gv" "Indent Right")
 
     # Copy to system clipboard
-    {
-      mode = [
-        "n"
-        "v"
-      ];
-      key = "<leader>y";
-      action = "\"+y";
-      options = {
-        silent = true;
-        desc = "Copy to System Clipboard";
-      };
-    }
+    (keymap [ "n" "v" ] "<leader>y" "\"+y" "Copy to System Clipboard")
 
     # Set highlight on search, but clear on <ESC> in normal mode
-    {
-      mode = "n";
-      key = "<ESC>";
-      action = "<cmd>nohlsearch<CR>";
-      options = {
-        silent = true;
-        desc = "Clear Search Highlight";
-      };
-    }
+    (nmap "<ESC>" "<cmd>nohlsearch<CR>" "Clear Search Highlight")
 
     # Indent blank lines
-    {
-      mode = "n";
-      key = "<leader>ui";
-      action = "<cmd>IBLToggle<CR>";
-      options = {
-        silent = true;
-        desc = "Toggle Indent Guides";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>uI";
-      action = "<cmd>IBLToggleScope<CR>";
-      options = {
-        silent = true;
-        desc = "Toggle Indent Scope";
-      };
-    }
+    (nmap "<leader>ui" "<cmd>IBLToggle<CR>" "Toggle Indent Guides")
+    (nmap "<leader>uI" "<cmd>IBLToggleScope<CR>" "Toggle Indent Scope")
   ];
 }

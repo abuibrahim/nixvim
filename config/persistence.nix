@@ -1,42 +1,17 @@
+let
+  inherit (import ./map.nix) nmap lua;
+in
 {
   plugins.persistence.enable = true;
 
   keymaps = [
-    {
-      mode = "n";
-      key = "<leader>qs";
-      action.__raw = "function() require('persistence').load() end";
-      options = {
-        silent = true;
-        desc = "Restore Session";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>ql";
-      action.__raw = "function() require('persistence').load({ last = true }) end";
-      options = {
-        silent = true;
-        desc = "Restore Last Session";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>qS";
-      action.__raw = "function() require('persistence').select() end";
-      options = {
-        silent = true;
-        desc = "Select Session";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>qd";
-      action.__raw = "function() require('persistence').stop() end";
-      options = {
-        silent = true;
-        desc = "Don't Save Current Session";
-      };
-    }
+    (nmap "<leader>qs" (lua "function() require('persistence').load() end") "Restore Session")
+    (nmap "<leader>ql" (lua "function() require('persistence').load({ last = true }) end")
+      "Restore Last Session"
+    )
+    (nmap "<leader>qS" (lua "function() require('persistence').select() end") "Select Session")
+    (nmap "<leader>qd" (lua "function() require('persistence').stop() end")
+      "Don't Save Current Session"
+    )
   ];
 }

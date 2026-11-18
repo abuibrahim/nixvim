@@ -1,3 +1,12 @@
+let
+  pick = action: desc: {
+    inherit action;
+    options = {
+      silent = true;
+      inherit desc;
+    };
+  };
+in
 {
   plugins.telescope = {
     enable = true;
@@ -5,59 +14,15 @@
       fzf-native.enable = true;
       ui-select.enable = true;
     };
-
     keymaps = {
-      "<leader><space>" = {
-        action = "find_files";
-        options = {
-          silent = true;
-          desc = "Find Project Files";
-        };
-      };
-      "<leader>/" = {
-        action = "live_grep";
-        options = {
-          silent = true;
-          desc = "Grep (Root Dir)";
-        };
-      };
-      "<leader>:" = {
-        action = "command_history";
-        options = {
-          silent = true;
-          desc = "Command History";
-        };
-      };
-      "<leader>b" = {
-        action = "buffers";
-        options = {
-          silent = true;
-          desc = "Buffers";
-        };
-      };
-
+      "<leader><space>" = pick "find_files" "Find Project Files";
+      "<leader>/" = pick "live_grep" "Grep (Root Dir)";
+      "<leader>:" = pick "command_history" "Command History";
+      "<leader>b" = pick "buffers" "Buffers";
       # LSP-powered search (only useful with a server attached, harmless otherwise)
-      "<leader>ss" = {
-        action = "lsp_document_symbols";
-        options = {
-          silent = true;
-          desc = "Goto Symbol (Document)";
-        };
-      };
-      "<leader>sS" = {
-        action = "lsp_dynamic_workspace_symbols";
-        options = {
-          silent = true;
-          desc = "Goto Symbol (Workspace)";
-        };
-      };
-      "<leader>sd" = {
-        action = "diagnostics";
-        options = {
-          silent = true;
-          desc = "Diagnostics";
-        };
-      };
+      "<leader>ss" = pick "lsp_document_symbols" "Goto Symbol (Document)";
+      "<leader>sS" = pick "lsp_dynamic_workspace_symbols" "Goto Symbol (Workspace)";
+      "<leader>sd" = pick "diagnostics" "Diagnostics";
     };
   };
 }

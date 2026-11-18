@@ -1,3 +1,15 @@
+let
+  group = mode: key: name: {
+    __unkeyed-1 = key;
+    inherit mode;
+    group = name;
+  };
+  nv = [
+    "n"
+    "v"
+  ];
+  n = [ "n" ];
+in
 {
   plugins = {
     which-key = {
@@ -9,60 +21,14 @@
           separator = "➜";
         };
         spec = [
-          {
-            __unkeyed-1 = "<leader>c";
-            mode = [
-              "n"
-              "v"
-            ];
-            group = "code";
-          }
-          {
-            __unkeyed-1 = "<leader>g";
-            mode = [
-              "n"
-              "v"
-            ];
-            group = "git";
-          }
-          {
-            __unkeyed-1 = "<leader>s";
-            mode = [ "n" ];
-            group = "search";
-          }
-          {
-            __unkeyed-1 = "<leader><Tab>";
-            mode = [ "n" ];
-            group = "tab";
-          }
-          {
-            __unkeyed-1 = "<leader>q";
-            mode = [ "n" ];
-            group = "quit/session";
-          }
-          {
-            __unkeyed-1 = "gs";
-            mode = [
-              "n"
-              "v"
-            ];
-            group = "surround";
-          }
-          {
-            __unkeyed-1 = "<leader>x";
-            mode = [ "n" ];
-            group = "diagnostics/quickfix";
-          }
-          {
-            __unkeyed-1 = "<leader>u";
-            mode = [ "n" ];
-            group = "ui";
-          }
-          {
-            __unkeyed-1 = "<leader>w";
-            mode = [ "n" ];
-            group = "windows";
-          }
+          (group nv "<leader>c" "code")
+          (group nv "<leader>g" "git")
+          (group n "<leader>s" "search")
+          (group n "<leader>q" "quit/session")
+          (group nv "gs" "surround")
+          (group n "<leader>x" "diagnostics/quickfix")
+          (group n "<leader>u" "ui")
+          (group n "<leader>w" "windows")
         ];
       };
     };

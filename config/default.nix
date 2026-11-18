@@ -1,9 +1,7 @@
 {
-  # Import all your configuration modules here
   imports = [
     ./blink-cmp.nix
     ./blink-pairs.nix
-    ./bufferline.nix
     ./theme.nix
     ./conform.nix
     ./dashboard.nix
@@ -48,7 +46,6 @@
     relativenumber = true;
     cursorline = true;
     signcolumn = "yes";
-    showtabline = 2;
     showmode = false;
     showmatch = true;
     matchtime = 1; # Flash duration in deciseconds
@@ -71,9 +68,7 @@
     # Files & Buffers
     swapfile = false;
     undofile = true;
-    autoread = true;
     writebackup = false;
-    fileencoding = "utf-8";
     modelines = 100; # Scan first/last 100 lines for modelines
 
     # Indentation & Formatting
@@ -91,14 +86,6 @@
     foldcolumn = "1";
     foldtext = ""; # Empty uses builtin foldtext
     fillchars = {
-      horiz = "━";
-      horizup = "┻";
-      horizdown = "┳";
-      vert = "┃";
-      vertleft = "┫";
-      vertright = "┣";
-      verthoriz = "╋";
-
       eob = " ";
       diff = "╱";
 

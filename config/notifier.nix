@@ -1,15 +1,10 @@
+let
+  inherit (import ./map.nix) nmap lua;
+in
 {
   plugins.snacks.settings.notifier.enabled = true;
 
   keymaps = [
-    {
-      mode = "n";
-      key = "<leader>un";
-      action.__raw = "function() Snacks.notifier.hide() end";
-      options = {
-        silent = true;
-        desc = "Dismiss All Notifications";
-      };
-    }
+    (nmap "<leader>un" (lua "function() Snacks.notifier.hide() end") "Dismiss All Notifications")
   ];
 }
