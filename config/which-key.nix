@@ -26,9 +26,7 @@ in
           (group n "<leader>s" "search")
           (group n "<leader>q" "quit/session")
           (group nv "gs" "surround")
-          (group n "<leader>x" "diagnostics/quickfix")
           (group n "<leader>u" "ui")
-          (group n "<leader>w" "windows")
         ];
       };
     };

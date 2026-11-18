@@ -5,13 +5,6 @@
     keymaps = {
       silent = true;
 
-      diagnostic = {
-        "<leader>cd" = {
-          action = "open_float";
-          desc = "Line Diagnostics";
-        };
-      };
-
       extra = [
         {
           key = "gd";

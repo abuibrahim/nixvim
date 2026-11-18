@@ -12,7 +12,6 @@ in
     (pick "<leader>/" "grep" "Grep (Root Dir)")
     (pick "<leader>:" "command_history" "Command History")
     (pick "<leader>b" "buffers" "Buffers")
-    (pick "<leader>ss" "lsp_symbols" "Goto Symbol (Document)")
     (pick "<leader>sS" "lsp_workspace_symbols" "Goto Symbol (Workspace)")
     (pick "<leader>sd" "diagnostics" "Diagnostics")
   ];

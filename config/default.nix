@@ -14,7 +14,6 @@
     ./persistence.nix
     ./picker.nix
     ./ui.nix
-    ./trouble.nix
     ./treesitter.nix
     ./treesitter-textobjects.nix
     ./which-key.nix

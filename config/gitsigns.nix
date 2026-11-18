@@ -2,10 +2,7 @@ let
   inherit (import ./map.nix) nmap lua;
 in
 {
-  plugins.gitsigns = {
-    enable = true;
-    settings.trouble = true;
-  };
+  plugins.gitsigns.enable = true;
 
   keymaps = [
     (nmap "]h" (lua ''
