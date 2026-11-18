@@ -1,17 +1,27 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
+  # for Neovim's own TUI; in neorex, its own runtime goes first
   extraPlugins = [
     (pkgs.vimUtils.buildVimPlugin {
-      pname = "colorrex.nvim";
-      version = "0-unstable-2026-11-10";
-      src = pkgs.fetchFromGitHub {
-        owner = "reklai";
-        repo = "colorrex.nvim";
-        rev = "bddcaf9f166ef4b88a04797331430ef7b46d46f1";
-        hash = "sha256-Th7D2wJOh+lL3GECAZ3YtwgYPOcWiihem+5DIrcigDs=";
-      };
+      pname = "neorex-runtime";
+      version = "0-unstable-2026-11-17";
+      src =
+        pkgs.fetchFromGitHub {
+          owner = "alexrlocke";
+          repo = "neorex";
+          rev = "2f61174865787ec4d9fe35d3a5733526fb6fa015";
+          hash = "sha256-4sDsx75qID4jgIQZM298uSs1Qp6Yhvq3ikepahUhSMg=";
+        }
+        + "/runtime";
       meta.license = pkgs.lib.licenses.mit;
     })
   ];
-  colorscheme = "colorrex";
+  extraConfigLuaPre = ''
+    if vim.g.neorex_runtime then
+      vim.opt.rtp:prepend(vim.g.neorex_runtime)
+    end
+  '';
+  colorscheme = "neorex";
+  # the palette needs it off in the TUI and on in neorex
+  opts.termguicolors = lib.mkForce { __raw = "vim.g.neorex == true"; };
 }

@@ -10,7 +10,7 @@
     ./indent-blankline.nix
     ./gitsigns.nix
     ./lsp.nix
-    ./lualine.nix
+    ./mini-statusline.nix
     ./mini-surround.nix
     ./notifier.nix
     ./persistence.nix
@@ -48,12 +48,10 @@
     relativenumber = true;
     cursorline = true;
     signcolumn = "yes";
-    laststatus = 3; # Global statusline
     showtabline = 2;
     showmode = false;
     showmatch = true;
     matchtime = 1; # Flash duration in deciseconds
-    winborder = "rounded";
 
     # Windows & Splits
     splitbelow = true;

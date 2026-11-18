@@ -18,39 +18,6 @@
         end
       '';
     }
-    # colorrex re-applies the colorscheme once the terminal reports its
-    # palette, after snacks has hidden the statusline for the dashboard.
-    # lualine reruns its setup on ColorScheme and on 'background' changes,
-    # which forces laststatus back to 3, so hide it again while the
-    # dashboard is still showing.
-    {
-      event = [ "ColorScheme" ];
-      pattern = [ "*" ];
-      desc = "Keep the statusline hidden on the dashboard";
-      callback.__raw = ''
-        function()
-          vim.schedule(function()
-            if vim.bo.filetype == "snacks_dashboard" then
-              vim.o.laststatus = 0
-            end
-          end)
-        end
-      '';
-    }
-    {
-      event = [ "OptionSet" ];
-      pattern = [ "background" ];
-      desc = "Keep the statusline hidden on the dashboard";
-      callback.__raw = ''
-        function()
-          vim.schedule(function()
-            if vim.bo.filetype == "snacks_dashboard" then
-              vim.o.laststatus = 0
-            end
-          end)
-        end
-      '';
-    }
     {
       event = [ "FileType" ];
       pattern = [
