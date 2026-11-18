@@ -15,7 +15,7 @@
       extra = [
         {
           key = "gd";
-          action = "<cmd>Telescope lsp_definitions<cr>";
+          action.__raw = "function() Snacks.picker.lsp_definitions() end";
           options.desc = "Goto Definition";
           mode = "n";
         }

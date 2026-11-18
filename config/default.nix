@@ -12,8 +12,8 @@
     ./mini-surround.nix
     ./notifier.nix
     ./persistence.nix
+    ./picker.nix
     ./ui.nix
-    ./telescope.nix
     ./trouble.nix
     ./treesitter.nix
     ./treesitter-textobjects.nix
