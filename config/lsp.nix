@@ -2,19 +2,6 @@
   plugins.lsp = {
     enable = true;
 
-    keymaps = {
-      silent = true;
-
-      extra = [
-        {
-          key = "gd";
-          action.__raw = "function() Snacks.picker.lsp_definitions() end";
-          options.desc = "Goto Definition";
-          mode = "n";
-        }
-      ];
-    };
-
     servers = {
       clangd = {
         enable = true;
