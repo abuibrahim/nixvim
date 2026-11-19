@@ -1,23 +1,58 @@
-let
-  inherit (import ./lib.nix) keymap nmap;
-in
 {
   keymaps = [
     # Save
-    (nmap "<C-s>" "<cmd>w<CR>" "Save File")
+    {
+      mode = "n";
+      key = "<C-s>";
+      action = "<cmd>w<CR>";
+      options.desc = "Save File";
+    }
 
     # Quit/Session
-    (nmap "<leader>qq" "<cmd>quitall<CR>" "Quit All")
+    {
+      mode = "n";
+      key = "<leader>qq";
+      action = "<cmd>quitall<CR>";
+      options.desc = "Quit All";
+    }
 
-    (keymap "v" "<" "<gv" "Indent Left")
-    (keymap "v" ">" ">gv" "Indent Right")
+    {
+      mode = "v";
+      key = "<";
+      action = "<gv";
+      options.desc = "Indent Left";
+    }
+    {
+      mode = "v";
+      key = ">";
+      action = ">gv";
+      options.desc = "Indent Right";
+    }
 
     # Copy to system clipboard
-    (keymap [ "n" "v" ] "<leader>y" "\"+y" "Copy to System Clipboard")
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<leader>y";
+      action = "\"+y";
+      options.desc = "Copy to System Clipboard";
+    }
 
     # Indent blank lines
-    (nmap "<leader>ui" "<cmd>IBLToggle<CR>" "Toggle Indent Guides")
-    (nmap "<leader>uI" "<cmd>IBLToggleScope<CR>" "Toggle Indent Scope")
+    {
+      mode = "n";
+      key = "<leader>ui";
+      action = "<cmd>IBLToggle<CR>";
+      options.desc = "Toggle Indent Guides";
+    }
+    {
+      mode = "n";
+      key = "<leader>uI";
+      action = "<cmd>IBLToggleScope<CR>";
+      options.desc = "Toggle Indent Scope";
+    }
   ];
 
   extraConfigLua = ''

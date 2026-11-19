@@ -1,6 +1,3 @@
-let
-  inherit (import ./lib.nix) keymap nmap lua;
-in
 {
   plugins.conform-nvim = {
     enable = true;
@@ -83,11 +80,26 @@ in
   ];
 
   keymaps = [
-    (nmap "<leader>uf" "<cmd>FormatToggle<CR>" "Toggle Format Globally")
-    (nmap "<leader>uF" "<cmd>FormatToggle!<CR>" "Toggle Format Locally")
-    (keymap [
-      "n"
-      "v"
-    ] "<leader>cf" (lua "function() require('conform').format() end") "Format Buffer/Selection")
+    {
+      mode = "n";
+      key = "<leader>uf";
+      action = "<cmd>FormatToggle<CR>";
+      options.desc = "Toggle Format Globally";
+    }
+    {
+      mode = "n";
+      key = "<leader>uF";
+      action = "<cmd>FormatToggle!<CR>";
+      options.desc = "Toggle Format Locally";
+    }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<leader>cf";
+      action = "<cmd>lua require('conform').format()<CR>";
+      options.desc = "Format Buffer/Selection";
+    }
   ];
 }

@@ -2,6 +2,15 @@
   plugins.lsp = {
     enable = true;
 
+    keymaps.extra = [
+      {
+        mode = "n";
+        key = "gd";
+        action = "<cmd>lua require('neorex.pick').lsp_definitions()<CR>";
+        options.desc = "Goto Definition";
+      }
+    ];
+
     servers = {
       clangd = {
         enable = true;

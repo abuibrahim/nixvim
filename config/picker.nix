@@ -1,23 +1,46 @@
-let
-  inherit (import ./lib.nix) nmap lua picker;
-  pick = key: source: nmap key (lua (picker source));
-in
 {
-  # in neorex the pickers and vim.ui open in Rex's command palette; the snacks
-  # picker is for Neovim's own TUI
-  plugins.snacks.settings.picker.enabled = true;
+  # the pickers and vim.ui open in Rex's command palette
   globals.neorex_config.ui = {
     select = "rex";
     input = "rex";
   };
 
   keymaps = [
-    (pick "<leader><space>" "files" "Find Project Files")
-    (pick "<leader>/" "grep" "Grep (Root Dir)")
-    (pick "<leader>:" "command_history" "Command History")
-    (pick "<leader>b" "buffers" "Buffers")
-    (pick "<leader>sS" "lsp_workspace_symbols" "Goto Symbol (Workspace)")
-    (pick "<leader>sd" "diagnostics" "Diagnostics")
-    (pick "gd" "lsp_definitions" "Goto Definition")
+    {
+      mode = "n";
+      key = "<leader><space>";
+      action = "<cmd>lua require('neorex.pick').files()<CR>";
+      options.desc = "Find Project Files";
+    }
+    {
+      mode = "n";
+      key = "<leader>/";
+      action = "<cmd>lua require('neorex.pick').grep()<CR>";
+      options.desc = "Grep (Root Dir)";
+    }
+    {
+      mode = "n";
+      key = "<leader>:";
+      action = "<cmd>lua require('neorex.pick').command_history()<CR>";
+      options.desc = "Command History";
+    }
+    {
+      mode = "n";
+      key = "<leader>b";
+      action = "<cmd>lua require('neorex.pick').buffers()<CR>";
+      options.desc = "Buffers";
+    }
+    {
+      mode = "n";
+      key = "<leader>sS";
+      action = "<cmd>lua require('neorex.pick').lsp_workspace_symbols()<CR>";
+      options.desc = "Goto Symbol (Workspace)";
+    }
+    {
+      mode = "n";
+      key = "<leader>sd";
+      action = "<cmd>lua require('neorex.pick').diagnostics()<CR>";
+      options.desc = "Diagnostics";
+    }
   ];
 }

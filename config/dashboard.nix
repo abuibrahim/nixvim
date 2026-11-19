@@ -1,6 +1,5 @@
 { pkgs, ... }:
 let
-  inherit (import ./lib.nix) picker;
   fadein = pkgs.vimUtils.buildVimPlugin {
     pname = "fadein.nvim";
     version = "0-unstable-2026-11-01";
@@ -27,10 +26,10 @@ in
       enabled = true;
       preset.keys.__raw = ''
         {
-          { icon = " ", key = "f", desc = "Find File", action = ${picker "files"} },
+          { icon = " ", key = "f", desc = "Find File", action = ":lua require('neorex.pick').files()" },
           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-          { icon = " ", key = "g", desc = "Find Text", action = ${picker "grep"} },
-          { icon = " ", key = "r", desc = "Recent Files", action = ${picker "recent"} },
+          { icon = " ", key = "g", desc = "Find Text", action = ":lua require('neorex.pick').grep()" },
+          { icon = " ", key = "r", desc = "Recent Files", action = ":lua require('neorex.pick').recent()" },
           { icon = " ", key = "s", desc = "Restore Session", action = ":lua require('persistence').load()" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         }
