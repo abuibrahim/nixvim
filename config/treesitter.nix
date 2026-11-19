@@ -34,6 +34,7 @@
         vim
         vimdoc
         yaml
+        zig
       ];
     };
   };
