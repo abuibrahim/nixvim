@@ -1,10 +1,6 @@
 let
-  inherit (import ./map.nix) nmap lua;
-  pick =
-    key: source:
-    nmap key (
-      lua "function() (vim.g.neorex and require('neorex.pick') or Snacks.picker).${source}() end"
-    );
+  inherit (import ./lib.nix) nmap lua picker;
+  pick = key: source: nmap key (lua (picker source));
 in
 {
   # in neorex the pickers and vim.ui open in Rex's command palette; the snacks

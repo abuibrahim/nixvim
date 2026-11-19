@@ -1,5 +1,5 @@
 let
-  inherit (import ./map.nix) keymap nmap lua;
+  inherit (import ./lib.nix) keymap nmap lua;
 in
 {
   plugins.conform-nvim = {

@@ -1,5 +1,5 @@
 let
-  inherit (import ./map.nix) nmap lua;
+  inherit (import ./lib.nix) nmap lua;
 in
 {
   plugins.snacks.settings.notifier.enabled = true;

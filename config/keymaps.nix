@@ -1,5 +1,5 @@
 let
-  inherit (import ./map.nix) keymap nmap;
+  inherit (import ./lib.nix) keymap nmap;
 in
 {
   keymaps = [
